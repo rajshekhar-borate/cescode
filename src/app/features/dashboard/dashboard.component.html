@@ -1,0 +1,50 @@
+<nav *ngIf="authService.isLoggedIn()" class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+
+        <button type="button" id="sidebarCollapse" class="navbar-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <i class="fas fa-align-justify"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <span>Dashboard Version v{{version}}</span>
+            <button type="button" (click)="save()" class="btn btn-outline-primary ml-4">Save</button>
+            <button type="button" (click)="clear()" class="btn btn-outline-warning ml-4">Clear</button>
+
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item">
+                    <button type="button" (click)="addWidget()" class="btn btn-outline-primary mt-14">Add
+                        Widget</button>
+                </li>
+                <li class="nav-item">
+                    <ngx-mat-drp class="ngx-mat-drp-size" (selectedDateRangeChanged)="updateRange($event)"
+                        [options]="ngxDrpOptions" #dateRangePicker></ngx-mat-drp>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div *ngIf="isErrorOccurred" class="display-6 alert alert-danger" role="alert">{{this.errorMessage}}</div>
+<form [formGroup]="form">
+    <div class="row" formArrayName="charts">
+        <div *ngFor="let chart of charts.controls; index as i">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <!-- <button type="button" class="btn btn-outline-danger ml-25" (click)="delete(i)">Delete</button> -->
+                <button class="ml-25" mat-icon-button matTooltip="Options" (click)=select.open()>
+                    <mat-icon>more_vert</mat-icon>
+                    <mat-select #select class="optionSelect">
+                        <mat-option value="">Edit</mat-option>
+                        <mat-option (click)="delete(i)" value="">Remove</mat-option>
+                    </mat-select>
+                </button>
+                <span id="chart{{i}}"></span>
+            </div>
+        </div>
+    </div>
+</form>

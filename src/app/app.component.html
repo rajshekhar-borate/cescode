@@ -1,0 +1,11 @@
+<div class="wrapper">
+    <!-- Sidebar Holder -->
+    <app-side-navbar *ngIf="authService.isLoggedIn() && isPageNotFound"></app-side-navbar>
+
+    <!-- Page Content Holder -->
+    <div id="content">
+       
+        <router-outlet></router-outlet>
+
+    </div>
+</div>
